@@ -28,9 +28,9 @@ public abstract class Program {
 		savePoints();
 		initCenters(noOfCenters);
 	}
-
-	protected abstract void changeCenterCoords(double[] point, Centra centro);
-
+	
+	public abstract void changeCenterCoords(double[] point, Centra c);
+	
 	public void algorithm() {
 		List<Integer> occurs = new ArrayList<Integer>();
 
@@ -54,6 +54,10 @@ public abstract class Program {
 			}
 			changeCenterCoords(points[shuffle], centra.get(centro));
 		}
+	}
+	
+	protected double alpha(int t) {
+		return (alpha - (t * 0.0001));
 	}
 
 	protected boolean checkIfOccurs(List<Integer> occur) {

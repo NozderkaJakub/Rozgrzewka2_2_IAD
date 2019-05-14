@@ -12,13 +12,13 @@ public class WTA extends Program {
 	}
 
 	@Override
-	public void changeCenterCoords(double[] point, Centra centro) {
+	public void changeCenterCoords(double[] point, Centra c) {
 		Vector<Double> V = new Vector<Double>();
 		Vector<Double> vector = new Vector<Double>();
-		vector.add((point[0] - centro.x));
-		vector.add((point[1] - centro.y));
-		V.add((centro.x + alpha * vector.get(0)));
-		V.add((centro.y + alpha * vector.get(1)));
-		centro.setXY(V);
+		vector.add((point[0] - c.x));
+		vector.add((point[1] - c.y));
+		V.add((c.x + alpha * vector.get(0)));
+		V.add((c.y + alpha * vector.get(1)));
+		c.setXY(V);
 	}
 }
