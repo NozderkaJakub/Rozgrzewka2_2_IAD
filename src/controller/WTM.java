@@ -1,27 +1,18 @@
 package controller;
 
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.Vector;
-
-import model.Centra;
 
 public class WTM extends Program {
 	private double lambda;
-	private Vector<Vector<Double>> distance;
 
 	public WTM(int radius, int centerX, int centerY, int noOfCenters, int noOfPoints) throws IOException {
 		super(radius, centerX, centerY, noOfCenters, noOfPoints);
 		lambda = 3.0;
-		distance = new Vector<Vector<Double>>();
 	}
 
-	private double theta(int t) {
-		return Math.exp(-(Math.pow(ro(t), 2)) / (2 * Math.pow(lambda(), 2)));
-	}
-
-	private double ro(int t) {
-		return (distance.get(0).get(1) - distance.get(t).get(1));
+	private double theta(int kx, int k) {
+		return Math.exp(-(Math.pow((kx - k), 2)) / (2 * Math.pow(lambda(), 2)));
 	}
 
 	private double lambda() {
@@ -32,34 +23,16 @@ public class WTM extends Program {
 	}
 
 	@Override
-	protected void changeCenterCoords(double[] point, Centra c) {
-		checkDistanceToNeighbors(c);
+	protected void changeCenterCoords(double[] point, int kx) {
 		for (int i = 0; i < centra.size(); i++) {
 			Vector<Double> V = new Vector<Double>();
 			Vector<Double> vector = new Vector<Double>();
-			System.out.println(distance.get(2).get(1).intValue());
-			vector.add(point[0] - centra.get(distance.get(i).get(1).intValue()).x);
-			vector.add(point[1] - centra.get(distance.get(i).get(1).intValue()).y);
-			V.add((centra.get(distance.get(i).get(1).intValue()).x + alpha * theta(i) * vector.get(0)));
-			V.add((centra.get(distance.get(i).get(1).intValue()).y + alpha * theta(i) * vector.get(1)));
-			c.setXY(V);
+			vector.add(point[0] - centra.get(i).x);
+			vector.add(point[1] - centra.get(i).y);
+			V.add((centra.get(i).x + (alpha * theta(kx, i) * vector.get(0))));
+			V.add((centra.get(i).y + (alpha * theta(kx, i) * vector.get(1))));
+			centra.get(i).setXY(V);
 		}
-	}
-
-	private void checkDistanceToNeighbors(Centra c) {
-		distance.clear();
-		for (int i = 0; i < centra.size(); i++) {
-			Vector<Double> V = new Vector<Double>();
-			V.add(0, c.checkDistance(centra.get(i)));
-			V.add(1, (double) i);
-			distance.add(V);
-		}
-		distance.sort(new Comparator<Vector<Double>>() {
-			@Override
-			public int compare(Vector<Double> o1, Vector<Double> o2) {
-				return o1.get(0).compareTo(o2.get(0));
-			}
-		});
 	}
 
 }
