@@ -32,15 +32,16 @@ public class WTM extends Program {
 	}
 
 	@Override
-	public void changeCenterCoords(double[] point, Centra c) {
+	protected void changeCenterCoords(double[] point, Centra c) {
 		checkDistanceToNeighbors(c);
 		for (int i = 0; i < centra.size(); i++) {
 			Vector<Double> V = new Vector<Double>();
 			Vector<Double> vector = new Vector<Double>();
-			vector.add(point[0] - centra.get((int) distance.get(i).get(1).intValue()).x);
-			vector.add(point[1] - centra.get((int) distance.get(i).get(1).intValue()).y);
-			V.add((centra.get((int) distance.get(i).get(1).intValue()).x + alpha * theta(i) * vector.get(0)));
-			V.add((centra.get((int) distance.get(i).get(1).intValue()).y + alpha * theta(i) * vector.get(1)));
+			System.out.println(distance.get(2).get(1).intValue());
+			vector.add(point[0] - centra.get(distance.get(i).get(1).intValue()).x);
+			vector.add(point[1] - centra.get(distance.get(i).get(1).intValue()).y);
+			V.add((centra.get(distance.get(i).get(1).intValue()).x + alpha * theta(i) * vector.get(0)));
+			V.add((centra.get(distance.get(i).get(1).intValue()).y + alpha * theta(i) * vector.get(1)));
 			c.setXY(V);
 		}
 	}
@@ -53,17 +54,12 @@ public class WTM extends Program {
 			V.add(1, (double) i);
 			distance.add(V);
 		}
-		System.out.println(distance.toString());
 		distance.sort(new Comparator<Vector<Double>>() {
 			@Override
 			public int compare(Vector<Double> o1, Vector<Double> o2) {
 				return o1.get(0).compareTo(o2.get(0));
 			}
-
 		});
-		System.out.println(distance.toString());
-		System.out.println();
-		System.out.println();
 	}
 
 }

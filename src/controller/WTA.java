@@ -12,7 +12,7 @@ public class WTA extends Program {
 	}
 
 	@Override
-	public void changeCenterCoords(double[] point, Centra c) {
+	protected void changeCenterCoords(double[] point, Centra c) {
 		Vector<Double> V = new Vector<Double>();
 		Vector<Double> vector = new Vector<Double>();
 		vector.add((point[0] - c.x));

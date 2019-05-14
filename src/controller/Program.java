@@ -16,8 +16,8 @@ public abstract class Program {
 
 	protected double[][] points;
 	public List<Centra> centra;
-	double alpha;
-	int shuffle;
+	protected double alpha;
+	protected int shuffle;
 
 	public Program(int radius, int centerX, int centerY, int noOfCenters, int noOfPoints) throws IOException {
 		points = new double[200][2];
@@ -29,7 +29,7 @@ public abstract class Program {
 		initCenters(noOfCenters);
 	}
 	
-	public abstract void changeCenterCoords(double[] point, Centra c);
+	protected abstract void changeCenterCoords(double[] point, Centra c);
 	
 	public void algorithm() {
 		List<Integer> occurs = new ArrayList<Integer>();
